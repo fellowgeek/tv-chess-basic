@@ -1,0 +1,189 @@
+/*
+  Variables
+*/
+:root {
+  --color-black: #000;
+  --color-dark-grey: #333;
+  --color-grey: #808080;
+  --tile-black: #000;
+  --tile-red: #fa7575;
+  --tile-orange: #fe9124;
+  --tile-yellow: #fff480;
+  --tile-green: #80ff80;
+  --tile-cyan: #80ffff;
+  --tile-blue: #80aaff;
+  --tile-pink: #ff80ff;
+  --tile-purple: #b061ff;
+  --tile-grey: #808080;
+  --tile-white: #fff;
+}
+
+/*
+  Global Styles
+*/
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+body {
+  background-color: var(--color-black);
+}
+
+/* Fix for the iOS list dividers */
+.ios .list-dividers-ios .item-inner::after {
+  width: calc(100% - 15px);
+}
+
+/*
+  Helper Classes
+*/
+.outline {
+  outline: 1px dashed fuchsia;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.no-margin {
+  margin: 0 !important;
+}
+
+.no-padding {
+  padding: 0 !important;
+}
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.monospace,
+.style-list-item-text.monospace,
+.style-list-item-text-large.monospace {
+  font-family: 'SF Mono', SFMono-Regular, ui-monospace, 'DejaVu Sans Mono', Menlo, Consolas, monospace;
+  font-size: 14px !important;
+  letter-spacing: 0;
+  line-break: anywhere !important;
+}
+
+.no-bullets {
+  margin: 2px 0 2px -30px;
+  list-style-type: none;
+}
+
+.selectable {
+  -webkit-touch-callout: auto;
+  -webkit-user-select: auto;
+  user-select: auto;
+}
+
+/* Width Utility Classes */
+[class^="w-"] {
+  width: calc(var(--width-percentage, 100) * 1%);
+}
+
+.w-10 { --width-percentage: 10; }
+.w-20 { --width-percentage: 20; }
+.w-25 { --width-percentage: 25; }
+.w-30 { --width-percentage: 30; }
+.w-40 { --width-percentage: 40; }
+.w-45 { --width-percentage: 45; }
+.w-50 { --width-percentage: 50; }
+.w-55 { --width-percentage: 55; }
+.w-60 { --width-percentage: 60; }
+.w-70 { --width-percentage: 70; }
+.w-80 { --width-percentage: 80; }
+.w-90 { --width-percentage: 90; }
+.w-100 { --width-percentage: 100; }
+
+/* Font Size Utility Classes */
+.fnt-12 { font-size: 12px; }
+.fnt-14 { font-size: 14px; }
+
+/*
+  User Interface
+*/
+.page {
+  background-repeat: repeat;
+}
+
+.bg-1 { background-image: url('../img/patterns/cartographer.png'); }
+.bg-2 {
+  background-color: #1a3057;
+  background-image:
+    linear-gradient(0deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+.bg-3 { background-image: url('../img/patterns/dot-grid.png.jpeg'); }
+.bg-4 { background-image: url('../img/patterns/inflicted.png'); }
+.bg-5 { background-image: url('../img/patterns/dark_brick_wall.png'); }
+.bg-6 { background-image: url('../img/patterns/stardust.png'); }
+
+.container {
+  margin: auto;
+  width: calc(100% - 10px);
+  height: 100%;
+  overflow: scroll;
+}
+
+.ios .button,
+input.dialog-input {
+  text-transform: none;
+}
+
+.style-list-item-text,
+.style-list-item-text-large {
+  font-size: var(--f7-list-item-after-font-size) !important;
+  color: var(--f7-list-item-after-text-color) !important;
+}
+
+.style-list-item-text-large {
+  -webkit-line-clamp: unset !important;
+  text-overflow: unset !important;
+  max-height: 100% !important;
+  overflow-y: scroll !important;
+}
+
+.credits-th {
+  color: #111 !important;
+}
+
+.code {
+  display: inline-block;
+  overflow-x: scroll;
+  padding: 10px !important;
+  border: 1px solid #ccc !important;
+  border-radius: 5px !important;
+  background-color: #f5f5f5 !important;
+  font-family: monospace !important;
+  font-size: 14px !important;
+  color: #333 !important;
+}
+
+.app-title {
+  font-weight: 500;
+  font-size: 15px;
+}
+
+/*
+  Dark Mode
+*/
+.dark .credits-th {
+  color: #fff !important;
+}
+
+.dark .code {
+  border: 1px solid #333 !important;
+  background-color: #555 !important;
+  color: #eee !important;
+}
