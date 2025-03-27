@@ -1,3 +1,7 @@
+.piece-417db {
+  z-index: 9999;
+}
+
 /*
   Variables
 */
@@ -5,17 +9,6 @@
   --color-black: #000;
   --color-dark-grey: #333;
   --color-grey: #808080;
-  --tile-black: #000;
-  --tile-red: #fa7575;
-  --tile-orange: #fe9124;
-  --tile-yellow: #fff480;
-  --tile-green: #80ff80;
-  --tile-cyan: #80ffff;
-  --tile-blue: #80aaff;
-  --tile-pink: #ff80ff;
-  --tile-purple: #b061ff;
-  --tile-grey: #808080;
-  --tile-white: #fff;
 }
 
 /*
@@ -116,18 +109,19 @@ body {
   background-repeat: repeat;
 }
 
-.bg-1 { background-image: url('../img/patterns/cartographer.png'); }
-.bg-2 {
+.bg-1 { background-color: #bbb; }
+.bg-2 { background-image: url('../img/patterns/cartographer.png'); }
+.bg-3 {
   background-color: #1a3057;
   background-image:
     linear-gradient(0deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   background-size: 20px 20px;
 }
-.bg-3 { background-image: url('../img/patterns/dot-grid.png.jpeg'); }
-.bg-4 { background-image: url('../img/patterns/inflicted.png'); }
-.bg-5 { background-image: url('../img/patterns/dark_brick_wall.png'); }
-.bg-6 { background-image: url('../img/patterns/stardust.png'); }
+.bg-4 { background-image: url('../img/patterns/dot-grid.png.jpeg'); }
+.bg-5 { background-image: url('../img/patterns/inflicted.png'); }
+.bg-6 { background-image: url('../img/patterns/dark_brick_wall.png'); }
+.bg-7 { background-image: url('../img/patterns/stardust.png'); }
 
 .container {
   margin: auto;
@@ -139,6 +133,10 @@ body {
 .ios .button,
 input.dialog-input {
   text-transform: none;
+}
+
+.icon-menu {
+  font-size: 38px;
 }
 
 .style-list-item-text,

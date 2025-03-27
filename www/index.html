@@ -3,15 +3,15 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#fff">
     <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' blob: data:">
-    <title>Host Alerts</title>
+    <title>TV Chess - Basic</title>
     <link rel="stylesheet" href="assets/css/framework7-bundle.min.css">
     <link rel="stylesheet" href="assets/css/framework7-icons.css">
+    <link rel="stylesheet" href="assets/css/chessboard-1.0.0.min.css">
     <link rel="stylesheet" href="assets/css/app.css">
 </head>
 
@@ -38,8 +38,7 @@
                     <!-- Help -->
                     <div class="block row">
                         <div class="col">
-                            <button id="btnHelp" class="button button-fill color-primary popup-open"
-                                data-popup=".help-popup">Help & CREDITS</button>
+                            <button id="btnHelp" class="button button-fill color-primary popup-open" data-popup=".help-popup">Help & CREDITS</button>
                         </div>
                     </div>
 
@@ -66,12 +65,13 @@
                                         <div class="item-title item-label">Background</div>
                                         <div class="item-input-wrap input-dropdown-wrap">
                                             <select id="appBackground" class="settings">
-                                                <option value="bg-1">Dark Marble</option>
-                                                <option value="bg-2">Blue Print</option>
-                                                <option value="bg-3">Dot Grid</option>
-                                                <option value="bg-6">Dust</option>
-                                                <option value="bg-5">Dark Bricks</option>
-                                                <option value="bg-4">Dark Grid</option>
+                                                <option value="bg-1">Gray</option>
+                                                <option value="bg-2">Dark Marble</option>
+                                                <option value="bg-3">Blue Print</option>
+                                                <option value="bg-4">Dot Grid</option>
+                                                <option value="bg-5">Dust</option>
+                                                <option value="bg-6">Dark Bricks</option>
+                                                <option value="bg-7">Dark Grid</option>
                                             </select>
                                         </div>
                                     </div>
@@ -137,19 +137,20 @@
                                     <tbody>
                                         <tr>
                                             <td>enClose</td>
-                                            <td><a class="link external"
-                                                    href="https://github.com/fellowgeek/enClose">https://github.com/fellowgeek/enClose</a>
+                                            <td>
+                                                <a class="link external" href="https://github.com/fellowgeek/enClose">https://github.com/fellowgeek/enClose</a>
                                             </td>
-                                            <td><a class="link external"
-                                                    href="https://github.com/fellowgeek/enClose/blob/master/LICENSE">MIT</a>
+                                            <td>
+                                                <a class="link external" href="https://github.com/fellowgeek/enClose/blob/master/LICENSE">MIT</a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Framework7</td>
-                                            <td><a class="link external"
-                                                    href="https://framework7.io">https://framework7.io</a></td>
-                                            <td><a class="link external"
-                                                    href="https://github.com/framework7io/framework7/blob/master/LICENSE">MIT</a>
+                                            <td>
+                                                <a class="link external" href="https://framework7.io">https://framework7.io</a>
+                                            </td>
+                                            <td>
+                                                <a class="link external" href="https://github.com/framework7io/framework7/blob/master/LICENSE">MIT</a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -157,8 +158,8 @@
                             </div>
 
                             <h4>Asset Attribution:</h4>
-                            <p>This app incorporates assets from third-party providers. The following is a list of these
-                                assets and their associated licenses:</p>
+
+                            <p>This app incorporates assets from third-party providers. The following is a list of these assets and their associated licenses:</p>
 
                             <div class="data-table">
                                 <table>
@@ -172,12 +173,8 @@
                                     <tbody>
                                         <tr>
                                             <td>Roboto Mono</td>
-                                            <td><a class="link external"
-                                                    href="https://fonts.google.com/specimen/Roboto+Mono/license">Google
-                                                    Fonts</a></td>
-                                            <td><a class="link external"
-                                                    href="http://www.apache.org/licenses/LICENSE-2.0">Apache License,
-                                                    Version 2.0</a></td>
+                                            <td><a class="link external" href="https://fonts.google.com/specimen/Roboto+Mono/license">Google Fonts</a></td>
+                                            <td><a class="link external" href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -196,6 +193,8 @@
     </div>
 
     <script src="assets/js/framework7-bundle.min.js"></script>
+    <script src="assets/js/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/chessboard-1.0.0.min.js"></script>
     <script src="assets/js/enclose.js"></script>
     <script src="assets/js/utility.js"></script>
     <script src="assets/js/app.js"></script>

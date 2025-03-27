@@ -133,32 +133,107 @@ function chessSetBackground(bg) {
     hostSaveSettings();
 }
 
-// Define a function for making an AJAX call using the fetch API.
-async function httpRequest(url, options, successCallback, errorCallback, finalCallback, isRaw = false) {
-    if (typeof options == 'undefined')
-        options = {};
+// This function compares two FEN strings and provides insightful commentary about the chess game
+function chessGenerateHumorousCommentary(beforeFEN, afterFEN) {
+    const chessBefore = new Chess(beforeFEN);
 
-    // Auto stringify the body
-    if (typeof options.body != 'undefined' && isRaw == false) {
-        options.body = JSON.stringify(options.body);
-    }
-    try {
-        const fetchResult = fetch(url, options);
-        const response = await fetchResult;
-        if (response.ok) {
-            if (typeof successCallback != 'undefined')
-                successCallback(response);
-        } else {
-            if (typeof errorCallback != 'undefined')
-                errorCallback(response);
+    // Get the move that led to afterFEN
+    const moves = chessBefore.moves({ verbose: true });
+
+    console.log(moves);
+    let lastMove = null;
+
+    for (const move of moves) {
+        chessBefore.move(move.san);
+        console.log('Trying: ' + move.san);
+        console.log('new FEN: ' + chessBefore.fen());
+        if (chessBefore.fen() === afterFEN) {
+            lastMove = move;
+            console.log('found it.');
+            break;
         }
-    } catch (error) {
-        if (typeof errorCallback != 'undefined')
-            errorCallback(error);
-    } finally {
-        if (typeof finalCallback != 'undefined')
-            finalCallback();
+        chessBefore.undo();
+        console.log('undo.');
     }
+
+    if (!lastMove) {
+        return "Something strange happened... Did we just enter an alternate reality?";
+    }
+
+    const pieceNames = {
+        p: ["pawn", "peasant", "little guy"],
+        n: ["knight", "horsey", "noble steed"],
+        b: ["bishop", "pointy hat dude", "diagonal menace"],
+        r: ["rook", "castle", "tower of power"],
+        q: ["queen", "royal powerhouse", "chess overlord"],
+        k: ["king", "big boss", "royal slowpoke"]
+    };
+
+    function getRandomComment(comments) {
+        return comments[Math.floor(Math.random() * comments.length)];
+    }
+
+    function getRandomPieceName(type) {
+        return getRandomComment(pieceNames[type] || [type]);
+    }
+
+    const pieceName = getRandomPieceName(lastMove.piece);
+    const capturedPieceName = lastMove.captured ? getRandomPieceName(lastMove.captured) : null;
+
+    if (lastMove.captured) {
+        const captureComments = [
+            `${pieceName.charAt(0).toUpperCase() + pieceName.slice(1)} devours the ${capturedPieceName}! Survival of the fittest!`,
+            `The ${pieceName} says: 'You won't be needing that square anymore, ${capturedPieceName}.'`,
+            `One less ${capturedPieceName} on the board... someone’s not making it home for dinner!`
+        ];
+        return getRandomComment(captureComments);
+    }
+
+    if (lastMove.flags.includes("k")) {
+        return getRandomComment([
+            "The king shuffles to safety! A tactical retreat, or just cold feet?",
+            "Castling: The king's way of saying 'Nope, not today!'",
+            "The king moves... behind his rook. Classic game of hide and seek!"
+        ]);
+    }
+
+    if (lastMove.flags.includes("p")) {
+        return getRandomComment([
+            "En passant! The most confusing rule strikes again!",
+            "A sneaky pawn swipe! That was smoother than a magician’s trick!",
+            "Even some grandmasters forget about en passant... but not this time!"
+        ]);
+    }
+
+    if (lastMove.flags.includes("q") || lastMove.flags.includes("r")) {
+        return getRandomComment([
+            "A humble pawn just transformed into royalty! Glow-up of the century!",
+            "Pawn to queen: ‘You wouldn't believe my journey!’",
+            "Promotion time! That pawn just got a serious job upgrade!"
+        ]);
+    }
+
+    if (lastMove.san.includes("+")) {
+        return getRandomComment([
+            `${pieceName.charAt(0).toUpperCase() + pieceName.slice(1)} says: ‘Knock, knock, your Majesty!’`,
+            "Check! The king feels a slight breeze of danger.",
+            "Oh no! The king is under attack! Quick, someone call security!"
+        ]);
+    }
+
+    if (lastMove.san.includes("#")) {
+        return getRandomComment([
+            "Checkmate! That’s game over, folks!",
+            "That was a royal shutdown! The king has been dethroned!",
+            "Game over! Someone just pulled off a checkmate like a boss!"
+        ]);
+    }
+
+    return getRandomComment([
+        `${pieceName.charAt(0).toUpperCase() + pieceName.slice(1)} moves to ${lastMove.to}. Probably part of some grandmaster plan... or just vibes.`,
+        `${pieceName.charAt(0).toUpperCase() + pieceName.slice(1)} steps forward with confidence! Or maybe just hesitation disguised as strategy?`,
+        `${pieceName.charAt(0).toUpperCase() + pieceName.slice(1)} finds a new home at ${lastMove.to}. Hope it’s cozy!`
+    ]);
 }
 
 // This function copies text from HTML element to clipboard.
@@ -172,15 +247,6 @@ function copyToClipboard(elementID) {
     enClose({
         nativeCall: 'issueHaptic',
     });
-}
-
-// This function creates an HTML element from a string.
-function createElementFromHTML(htmlString) {
-    var div = document.createElement('div');
-    div.innerHTML = htmlString.trim();
-
-    // Change this to div.childNodes to support multiple top-level nodes.
-    return div.firstChild;
 }
 
 // This function masks input number.
@@ -211,56 +277,9 @@ function generateHash(str) {
     return hash;
 }
 
-// This function generates a random tile name of the specified length.
-function generateRandomTileName(length) {
-    const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    let code = '';
-    for (let i = 0; i < length; i++) {
-        const randomIndex = Math.floor(Math.random() * characters.length);
-        code += characters[randomIndex];
-    }
-    return code;
-}
-
-// This function generates a random number between two numbers.
-function getRandomNumberBetween(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-// This function gets a random icon from the icon select popup
-function getRandomIcon() {
-    let icons = [];
-    let iconItems = $$('.host-select-icon-item');
-    iconItems.forEach((iconItem, index) => {
-        icons.push($$(iconItem).data('icon'));
-    });
-
-    return icons[getRandomNumberBetween(0, icons.length - 1)];
-}
-
-// This function returns region names
-function getRegionName(regionCode) {
-    try {
-        const regionNames = new Intl.DisplayNames(['en'], { type: 'region' });
-        return regionNames.of(regionCode);
-    } catch (error) {
-        return null;
-    }
-}
-
-// This function returns the number of seconds since a timestamp
-function secondsSinceTimestamp(timestamp) {
-    const now = new Date();
-    const timestampDate = timestamp instanceof Date ? timestamp : new Date(timestamp);
-    const differenceInMilliseconds = now - timestampDate;
-    return Math.floor(differenceInMilliseconds / 1000);
-}
-
-// This function checks if an array has duplicates.
-function arrayHasDuplicates(array) {
-    return array.some((item, index) => array.indexOf(item) !== index);
-}
-
 // Performs a functional test of the app.
 function test() {
+    let beforeFEN = "r2qkbnr/p3pppp/npppb3/8/2P1P3/3P3N/PP2BPPP/RNBQK2R w KQkq - 0 6";
+    let afterFEN = "r2qkbnr/p3pppp/npppb3/8/2P1P3/3P3N/PP2BPPP/RNBQ1RK1 b kq - 1 6";
+    console.log(chessGenerateHumorousCommentary(beforeFEN, afterFEN));
 }

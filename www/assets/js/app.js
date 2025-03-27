@@ -2,20 +2,18 @@
 var app = null;
 // Assign Dom7 to $$ for easier DOM manipulation
 var $$ = Dom7;
-// Store global object for alert dialog
-var appAlert = {};
 // Create an empty session object to store session data
 var session = {};
 // Create an empty session hash to store the session data hash
 var lastSessionHash = '';
 // Load env.js in debug mode
 var loadEnv = true;
-// Store click counts om the app main page
-var clickCount = 0;
-// Object to store chess tiles
-var chessTiles = {};
 // Store if the tiles are being dragged
 var isDragging = false;
+// Global variable
+let Chess;
+// Create an empty object to store the chess controller instance
+var chessController = null;
 
 // Function to log messages to the console when __DEBUG_MODE__ is enabled
 function debugLog(...message) {
@@ -47,6 +45,13 @@ function initializeApp() {
         appBackground: 'bg-1',
     };
 
+    // Load chess.js for chess move generation/validation, piece placement/movement, and check/checkmate/stalemate detection
+    import('./chess.js').then((module) => {
+        Chess = module.Chess; // Access the Chess object from the module
+        chessController = new Chess();
+        debugLog(`%c${chessController.ascii()}`, 'font-family: menlo, consolas, monospace');
+    });
+
     // Initialize Framework7 app with iOS theme
     var theme = 'ios';
     app = new Framework7({
@@ -65,7 +70,6 @@ function initializeApp() {
             }
         ]
     });
-
 }
 
 // Event listener for page initialization
@@ -78,6 +82,12 @@ $$(document).on('page:init', function (e, page) {
         return;
 
     updateUIFromSession();
+
+    var board = Chessboard('chessBoard', {
+        position: 'start',
+        pieceTheme: 'assets/img/chesspieces/wikipedia/{piece}.png',
+        draggable: true,
+    });
 
     // Read data from storage and load settings
     enClose({
