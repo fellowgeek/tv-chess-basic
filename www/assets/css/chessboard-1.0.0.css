@@ -1,0 +1,74 @@
+:root {
+  --color-chess-black: #999;
+  --color-chess-black-text: #000;
+  --color-chess-white: #eee;
+  --color-chess-white-text: #000;
+}
+
+/*! chessboard.js v1.0.0 | (c) 2019 Chris Oakman | MIT License chessboardjs.com/license */
+
+.clearfix-7da63 {
+  clear: both;
+}
+
+.board-b72b1 {
+  border: 2px solid #404040;
+  box-sizing: content-box;
+  outline: 30px solid rgba(135, 135, 135, 10);
+  border-radius: 2px;
+}
+
+.square-55d63 {
+  float: left;
+  position: relative;
+
+  /* disable any native browser highlighting */
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
+
+.white-1e1d7 {
+  background-color: var(--color-chess-white);
+  color: var(--color-chess-white-text);
+}
+
+.black-3c85d {
+  background-color: var(--color-chess-black);
+  color: var(--color-chess-black-text);
+}
+
+.highlight1-32417, .highlight2-9c5d2 {
+  outline: 3px solid rgba(255, 255, 100, 0.8);
+  outline-offset: -3px;
+}
+
+.notation-322f9 {
+  cursor: default;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  position: absolute;
+}
+
+.alpha-d2270 {
+  bottom: -25px;
+  right: 0px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.numeric-fc462 {
+  top: 50%;
+  left: -20px;
+  transform: translateY(-50%);
+  width: 100%;
+}
+
+.piece-417db {
+  z-index: 9999;
+}

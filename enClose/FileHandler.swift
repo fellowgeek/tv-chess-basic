@@ -1,3 +1,11 @@
+//
+//  FileHandler.swift
+//  enClose
+//
+//  Created by Erfan Reed on 3/29/25.
+//
+
+
 import Foundation
 
 class FileHandler {

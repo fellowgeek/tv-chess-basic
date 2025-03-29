@@ -133,7 +133,7 @@ function chessSetBackground(bg) {
     hostSaveSettings();
 }
 
-// This function compares two FEN strings and provides insightful commentary about the chess game
+// This function compares two FEN strings and provides humorous commentary about the chess game
 function chessGenerateHumorousCommentary(beforeFEN, afterFEN) {
     const chessBefore = new Chess(beforeFEN);
 
@@ -145,15 +145,11 @@ function chessGenerateHumorousCommentary(beforeFEN, afterFEN) {
 
     for (const move of moves) {
         chessBefore.move(move.san);
-        console.log('Trying: ' + move.san);
-        console.log('new FEN: ' + chessBefore.fen());
         if (chessBefore.fen() === afterFEN) {
             lastMove = move;
-            console.log('found it.');
             break;
         }
         chessBefore.undo();
-        console.log('undo.');
     }
 
     if (!lastMove) {
@@ -162,7 +158,7 @@ function chessGenerateHumorousCommentary(beforeFEN, afterFEN) {
 
     const pieceNames = {
         p: ["pawn", "peasant", "little guy"],
-        n: ["knight", "horsey", "noble steed"],
+        n: ["knight", "horsey", "noble steed", "the horse thing"],
         b: ["bishop", "pointy hat dude", "diagonal menace"],
         r: ["rook", "castle", "tower of power"],
         q: ["queen", "royal powerhouse", "chess overlord"],

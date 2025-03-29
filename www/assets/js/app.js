@@ -41,6 +41,8 @@ if (loadEnv == true) {
 function initializeApp() {
     // Intial app state
     session = {
+        chessFEN: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+        chessLastFEN: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
         appDarkMode: 'N',
         appBackground: 'bg-1',
     };
@@ -83,11 +85,8 @@ $$(document).on('page:init', function (e, page) {
 
     updateUIFromSession();
 
-    var board = Chessboard('chessBoard', {
-        position: 'start',
-        pieceTheme: 'assets/img/chesspieces/wikipedia/{piece}.png',
-        draggable: true,
-    });
+    // Initalize the game
+    chessInitGame();
 
     // Read data from storage and load settings
     enClose({
