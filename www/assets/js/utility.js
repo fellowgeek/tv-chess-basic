@@ -3,6 +3,11 @@ function chessLoadSettings(response = '', updateStatuses = false) {
     // If the response is not empty, parse it and update the session.
     if (response != '') {
         session = JSON.parse(response.replace(/\n/g, '\\n'));
+        if (session.chessAIComentary == undefined) session.chessAIComentary = 'Y';
+        if (session.chessSoundsEnabled == undefined) session.chessSoundsEnabled = 'Y';
+        if (session.chessHapticsEnabled == undefined) session.chessHapticsEnabled = 'Y';
+        if (session.chessFEN == undefined) session.chessFEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+        if (session.chessLastFEN == undefined) session.chessLastFEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
         if (session.appDarkMode == undefined) session.appDarkMode = 'N';
         if (session.appBackground == undefined) session.appBackground = 'bg-1';
     }
@@ -63,59 +68,22 @@ function updateUIFromSession() {
 function chessReset() {
     // Reset the session
     session = {
-        hostDarkMode: 'N',
-        hostBackground: 'bg-1',
-        hostSelectedSubscription: 'hostalerts.monthly',
-        hostServers: [],
-        hostLayout: '',
-        hostDeviceToken: '',
-        applicationBadge: 0,
-        hasSubscription: 'N',
-        hasNotificationAuthorization: 'N',
-        unlockCode: '******',
-        clientID: ''
+        chessAIComentary: 'Y',
+        chessSoundsEnabled: 'Y',
+        chessHapticsEnabled: 'Y',
+        chessFEN: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+        chessLastFEN: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+        appDarkMode: 'N',
+        appBackground: 'bg-1',
     };
-
-    // Remove all servers from the UI
-    let tiles = hostTiles.getItems().filter(tile => {
-        return tile.getElement().getAttribute('data-button') == undefined;
-    });
-    hostTiles.remove(tiles, {
-        removeElements: true,
-        layout: false
-    });
-    hostTiles.layout();
-
-    // Reset the application badge
-    enClose({
-        nativeCall: 'updateApplicationBadgeCount',
-        data: {
-            badge: 0
-        }
-    });
-
-    // Get subscription status
-    enClose({
-        'nativeCall': 'getSubscriptionStatus',
-        successCallback: 'hostUpdateSubscription'
-    });
-
-    // Get notification authorization status
-    enClose({
-        'nativeCall': 'getNotificationsAuthorizationStatus',
-        successCallback: 'hostUpdateNotificationAuthorization'
-    });
 
     // Update the UI
     updateUIFromSession();
 
     setTimeout(() => {
-        // Update the UI
-        updateUIFromSession();
-
         // Save session
-        hostSaveSettings();
-    }, 2500);
+        chessSaveSettings();
+    }, 500);
 }
 
 // This function sets the app backgroung image.
@@ -133,6 +101,40 @@ function chessSetBackground(bg) {
     hostSaveSettings();
 }
 
+// This function plays a sound effect if app sound effects are enabled
+function chessPlaySound(sound = null) {
+    if (session.chessSoundsEnabled == 'N') {
+        return;
+    }
+
+    const dropSounds = ['drop1', 'drop2', 'drop3', 'drop4', 'drop5'];
+
+    if (sound == null) {
+        sound = dropSounds[Math.floor(Math.random() * dropSounds.length)];
+    }
+
+    enClose({
+        nativeCall: 'playSound',
+        data: {
+            sound: sound
+        }
+    });
+};
+
+// This function trigger the iPhone's haptic engine if app haptics are enabled
+function chessIssueHaptics(intensity = 'medium') {
+    if (session.chessHapticsEnabled == 'N') {
+        return;
+    }
+
+    enClose({
+        nativeCall: 'issueHaptic',
+        data: {
+            intensity: intensity
+        }
+    });
+}
+
 // This function compares two FEN strings and provides humorous commentary about the chess game
 function chessGenerateHumorousCommentary(beforeFEN, afterFEN) {
     const chessBefore = new Chess(beforeFEN);
@@ -140,9 +142,7 @@ function chessGenerateHumorousCommentary(beforeFEN, afterFEN) {
     // Get the move that led to afterFEN
     const moves = chessBefore.moves({ verbose: true });
 
-    console.log(moves);
     let lastMove = null;
-
     for (const move of moves) {
         chessBefore.move(move.san);
         if (chessBefore.fen() === afterFEN) {

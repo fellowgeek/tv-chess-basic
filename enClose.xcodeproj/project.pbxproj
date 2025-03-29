@@ -17,6 +17,11 @@
 		E277752A2D0BDEF600E5047D /* ExternalDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27775292D0BDEF600E5047D /* ExternalDisplayViewController.swift */; };
 		E2EA0BD22D97D24D001CC621 /* FileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EA0BD12D97D24D001CC621 /* FileHandler.swift */; };
 		E2EA0BD42D97D291001CC621 /* SoundHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EA0BD32D97D291001CC621 /* SoundHandler.swift */; };
+		E2EA0BDA2D97DA01001CC621 /* drop1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E2EA0BD52D97DA01001CC621 /* drop1.mp3 */; };
+		E2EA0BDB2D97DA01001CC621 /* drop3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E2EA0BD72D97DA01001CC621 /* drop3.mp3 */; };
+		E2EA0BDC2D97DA01001CC621 /* drop5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E2EA0BD92D97DA01001CC621 /* drop5.mp3 */; };
+		E2EA0BDD2D97DA01001CC621 /* drop2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E2EA0BD62D97DA01001CC621 /* drop2.mp3 */; };
+		E2EA0BDE2D97DA01001CC621 /* drop4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E2EA0BD82D97DA01001CC621 /* drop4.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +37,11 @@
 		E27775292D0BDEF600E5047D /* ExternalDisplayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalDisplayViewController.swift; sourceTree = "<group>"; };
 		E2EA0BD12D97D24D001CC621 /* FileHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileHandler.swift; sourceTree = "<group>"; };
 		E2EA0BD32D97D291001CC621 /* SoundHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundHandler.swift; sourceTree = "<group>"; };
+		E2EA0BD52D97DA01001CC621 /* drop1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = drop1.mp3; sourceTree = "<group>"; };
+		E2EA0BD62D97DA01001CC621 /* drop2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = drop2.mp3; sourceTree = "<group>"; };
+		E2EA0BD72D97DA01001CC621 /* drop3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = drop3.mp3; sourceTree = "<group>"; };
+		E2EA0BD82D97DA01001CC621 /* drop4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = drop4.mp3; sourceTree = "<group>"; };
+		E2EA0BD92D97DA01001CC621 /* drop5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = drop5.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +75,7 @@
 		9622CA14214867C4000FEAF1 /* enClose */ = {
 			isa = PBXGroup;
 			children = (
+				E2EA0BDF2D97DA07001CC621 /* Sounds */,
 				E2EA0BD32D97D291001CC621 /* SoundHandler.swift */,
 				9622CA15214867C4000FEAF1 /* AppDelegate.swift */,
 				E23D1DB02D0B041F0035B2EA /* SceneDelegate.swift */,
@@ -77,6 +88,18 @@
 				9622CA21214867C6000FEAF1 /* Info.plist */,
 			);
 			path = enClose;
+			sourceTree = "<group>";
+		};
+		E2EA0BDF2D97DA07001CC621 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				E2EA0BD52D97DA01001CC621 /* drop1.mp3 */,
+				E2EA0BD62D97DA01001CC621 /* drop2.mp3 */,
+				E2EA0BD72D97DA01001CC621 /* drop3.mp3 */,
+				E2EA0BD82D97DA01001CC621 /* drop4.mp3 */,
+				E2EA0BD92D97DA01001CC621 /* drop5.mp3 */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,6 +163,11 @@
 			files = (
 				96F01737214B11A000AE0D39 /* www in Resources */,
 				9622CA20214867C6000FEAF1 /* LaunchScreen.storyboard in Resources */,
+				E2EA0BDA2D97DA01001CC621 /* drop1.mp3 in Resources */,
+				E2EA0BDB2D97DA01001CC621 /* drop3.mp3 in Resources */,
+				E2EA0BDC2D97DA01001CC621 /* drop5.mp3 in Resources */,
+				E2EA0BDD2D97DA01001CC621 /* drop2.mp3 in Resources */,
+				E2EA0BDE2D97DA01001CC621 /* drop4.mp3 in Resources */,
 				9622CA1D214867C6000FEAF1 /* Assets.xcassets in Resources */,
 				9622CA1B214867C4000FEAF1 /* Main.storyboard in Resources */,
 			);

@@ -26,6 +26,10 @@ function onDrop(source, target) {
         return 'snapback';
     }
 
+    // Play sound effects and haptics
+    chessPlaySound();
+    chessIssueHaptics();
+
     updateStatus();
 }
 
@@ -66,6 +70,7 @@ function updateStatus() {
     // Update the session
     session.chessFEN = chessController.fen();
 
+    // Provide insightful comentary
     debugLog(chessGenerateHumorousCommentary(session.chessLastFEN, session.chessFEN));
 
     $$('#status').text(status);
@@ -76,7 +81,7 @@ function updateStatus() {
 function chessInitGame() {
     var config = {
         draggable: true,
-        position: 'start',
+        position: session.chessFEN,
         pieceTheme: 'assets/img/chesspieces/wikipedia/{piece}.png',
         onDragStart: onDragStart,
         onDrop: onDrop,

@@ -41,6 +41,9 @@ if (loadEnv == true) {
 function initializeApp() {
     // Intial app state
     session = {
+        chessAIComentary: 'Y',
+        chessSoundsEnabled: 'Y',
+        chessHapticsEnabled: 'Y',
         chessFEN: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
         chessLastFEN: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
         appDarkMode: 'N',
