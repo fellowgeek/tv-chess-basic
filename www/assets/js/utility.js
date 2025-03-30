@@ -3,7 +3,7 @@ function chessLoadSettings(response = '', updateStatuses = false) {
     // If the response is not empty, parse it and update the session.
     if (response != '') {
         session = JSON.parse(response.replace(/\n/g, '\\n'));
-        if (session.chessAIComentary == undefined) session.chessAIComentary = 'Y';
+        if (session.chessAICommentary == undefined) session.chessAICommentary = 'Y';
         if (session.chessSoundsEnabled == undefined) session.chessSoundsEnabled = 'Y';
         if (session.chessHapticsEnabled == undefined) session.chessHapticsEnabled = 'Y';
         if (session.chessFEN == undefined) session.chessFEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
@@ -42,12 +42,13 @@ function updateSessionFromSettingsUI() {
     // Update the session
     session.appDarkMode = $$('#appDarkMode').prop('checked') ? 'Y' : 'N';
     session.appBackground = $$('#appBackground').val();
+    session.chessAICommentary = $$('#chessAICommentary').prop('checked') ? 'Y' : 'N';
+    session.chessSoundsEnabled = $$('#chessSoundsEnabled').prop('checked') ? 'Y' : 'N';
+    session.chessHapticsEnabled = $$('#chessHapticsEnabled').prop('checked') ? 'Y' : 'N';
 }
 
 // This function updates the settings user interface from the session.
 function updateUIFromSession() {
-    // Update page background
-    $$('.page[data-name="home"]').removeClass('bg-1 bg-2 bg-3 bg-4 bg-5 bg-6').addClass(session.appBackground);
 
     // Update the dark mode settings
     $$('#appDarkMode').prop('checked', session.appDarkMode == 'Y' ? true : false);
@@ -59,16 +60,25 @@ function updateUIFromSession() {
         app.setColorTheme('#007aff');
     }
 
-    // Update the background selector
+    // Update page background settings
+    $$('.page[data-name="home"]').removeClass('bg-1 bg-2 bg-3 bg-4 bg-5 bg-6').addClass(session.appBackground);
     $$('#appBackground').val(session.appBackground);
 
+    // Update AI commentary
+    $$('#chessAICommentary').prop('checked', session.chessAICommentary == 'Y' ? true : false);
+
+    // Update sounds settings
+    $$('#chessSoundsEnabled').prop('checked', session.chessSoundsEnabled == 'Y' ? true : false);
+
+    // Update haptics settinfs
+    $$('#chessHapticsEnabled').prop('checked', session.chessHapticsEnabled == 'Y' ? true : false);
 }
 
 // This function resets all app settings to default.
 function chessReset() {
     // Reset the session
     session = {
-        chessAIComentary: 'Y',
+        chessAICommentary: 'Y',
         chessSoundsEnabled: 'Y',
         chessHapticsEnabled: 'Y',
         chessFEN: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
@@ -131,6 +141,21 @@ function chessIssueHaptics(intensity = 'medium') {
         nativeCall: 'issueHaptic',
         data: {
             intensity: intensity
+        }
+    });
+}
+
+// This function speaks the given text if AI commentary is enabled
+function chessSpeak($text) {
+
+    if (session.chessAICommentary == 'N') {
+        return;
+    }
+
+    enClose({
+        nativeCall: 'speakText',
+        data: {
+            text: $text
         }
     });
 }

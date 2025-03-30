@@ -39,7 +39,7 @@ function onSnapEnd() {
     board.position(chessController.fen());
 }
 
-function updateStatus() {
+function updateStatus(intial = false) {
     var status = ''
 
     var moveColor = 'White';
@@ -71,7 +71,10 @@ function updateStatus() {
     session.chessFEN = chessController.fen();
 
     // Provide insightful comentary
-    debugLog(chessGenerateHumorousCommentary(session.chessLastFEN, session.chessFEN));
+    if (intial == false) {
+        let commentary = chessGenerateHumorousCommentary(session.chessLastFEN, session.chessFEN);
+        chessSpeak(commentary);
+    }
 
     $$('#status').text(status);
     $$('#fen').text(chessController.fen());
@@ -91,5 +94,5 @@ function chessInitGame() {
     board = Chessboard('chessBoard', config);
     session.chessFEN = chessController.fen();
     session.chessLastFEN = chessController.fen();
-    updateStatus();
+    updateStatus(true);
 }

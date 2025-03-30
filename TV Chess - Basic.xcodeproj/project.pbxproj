@@ -25,7 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9622CA12214867C4000FEAF1 /* enClose.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = enClose.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9622CA12214867C4000FEAF1 /* TV Chess - Basic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TV Chess - Basic.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9622CA15214867C4000FEAF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9622CA17214867C4000FEAF1 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		9622CA1A214867C4000FEAF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -67,7 +67,7 @@
 		9622CA13214867C4000FEAF1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9622CA12214867C4000FEAF1 /* enClose.app */,
+				9622CA12214867C4000FEAF1 /* TV Chess - Basic.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -105,9 +105,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9622CA11214867C4000FEAF1 /* enClose */ = {
+		9622CA11214867C4000FEAF1 /* TV Chess - Basic */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9622CA24214867C6000FEAF1 /* Build configuration list for PBXNativeTarget "enClose" */;
+			buildConfigurationList = 9622CA24214867C6000FEAF1 /* Build configuration list for PBXNativeTarget "TV Chess - Basic" */;
 			buildPhases = (
 				9622CA0E214867C4000FEAF1 /* Sources */,
 				9622CA0F214867C4000FEAF1 /* Frameworks */,
@@ -117,9 +117,9 @@
 			);
 			dependencies = (
 			);
-			name = enClose;
+			name = "TV Chess - Basic";
 			productName = enClose;
-			productReference = 9622CA12214867C4000FEAF1 /* enClose.app */;
+			productReference = 9622CA12214867C4000FEAF1 /* TV Chess - Basic.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -138,7 +138,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 9622CA0D214867C4000FEAF1 /* Build configuration list for PBXProject "enClose" */;
+			buildConfigurationList = 9622CA0D214867C4000FEAF1 /* Build configuration list for PBXProject "TV Chess - Basic" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -151,7 +151,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9622CA11214867C4000FEAF1 /* enClose */,
+				9622CA11214867C4000FEAF1 /* TV Chess - Basic */,
 			);
 		};
 /* End PBXProject section */
@@ -382,7 +382,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9622CA0D214867C4000FEAF1 /* Build configuration list for PBXProject "enClose" */ = {
+		9622CA0D214867C4000FEAF1 /* Build configuration list for PBXProject "TV Chess - Basic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9622CA22214867C6000FEAF1 /* Debug */,
@@ -391,7 +391,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9622CA24214867C6000FEAF1 /* Build configuration list for PBXNativeTarget "enClose" */ = {
+		9622CA24214867C6000FEAF1 /* Build configuration list for PBXNativeTarget "TV Chess - Basic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9622CA25214867C6000FEAF1 /* Debug */,
