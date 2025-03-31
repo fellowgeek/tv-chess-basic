@@ -8,6 +8,7 @@ function chessLoadSettings(response = '', updateStatuses = false) {
         if (session.chessHapticsEnabled == undefined) session.chessHapticsEnabled = 'Y';
         if (session.chessFEN == undefined) session.chessFEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
         if (session.chessLastFEN == undefined) session.chessLastFEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+        if (session.chessTheme == undefined) session.chessTheme = 'alpha';
         if (session.appDarkMode == undefined) session.appDarkMode = 'N';
         if (session.appBackground == undefined) session.appBackground = 'bg-1';
     }
@@ -40,15 +41,28 @@ function chessSaveSettings() {
 // This function updates the session from the settings user interface.
 function updateSessionFromSettingsUI() {
     // Update the session
-    session.appDarkMode = $$('#appDarkMode').prop('checked') ? 'Y' : 'N';
-    session.appBackground = $$('#appBackground').val();
     session.chessAICommentary = $$('#chessAICommentary').prop('checked') ? 'Y' : 'N';
     session.chessSoundsEnabled = $$('#chessSoundsEnabled').prop('checked') ? 'Y' : 'N';
     session.chessHapticsEnabled = $$('#chessHapticsEnabled').prop('checked') ? 'Y' : 'N';
+    session.chessTheme = $$('#chessTheme').val();
+    session.appDarkMode = $$('#appDarkMode').prop('checked') ? 'Y' : 'N';
+    session.appBackground = $$('#appBackground').val();
 }
 
 // This function updates the settings user interface from the session.
 function updateUIFromSession() {
+
+    // Update AI commentary
+    $$('#chessAICommentary').prop('checked', session.chessAICommentary == 'Y' ? true : false);
+
+    // Update sounds settings
+    $$('#chessSoundsEnabled').prop('checked', session.chessSoundsEnabled == 'Y' ? true : false);
+
+    // Update haptics settings
+    $$('#chessHapticsEnabled').prop('checked', session.chessHapticsEnabled == 'Y' ? true : false);
+
+    // Update the chess theme
+    $$('#chessTheme').val(session.chessTheme);
 
     // Update the dark mode settings
     $$('#appDarkMode').prop('checked', session.appDarkMode == 'Y' ? true : false);
@@ -64,14 +78,6 @@ function updateUIFromSession() {
     $$('.page[data-name="home"]').removeClass('bg-1 bg-2 bg-3 bg-4 bg-5 bg-6').addClass(session.appBackground);
     $$('#appBackground').val(session.appBackground);
 
-    // Update AI commentary
-    $$('#chessAICommentary').prop('checked', session.chessAICommentary == 'Y' ? true : false);
-
-    // Update sounds settings
-    $$('#chessSoundsEnabled').prop('checked', session.chessSoundsEnabled == 'Y' ? true : false);
-
-    // Update haptics settinfs
-    $$('#chessHapticsEnabled').prop('checked', session.chessHapticsEnabled == 'Y' ? true : false);
 }
 
 // This function resets all app settings to default.

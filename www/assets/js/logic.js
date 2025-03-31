@@ -72,7 +72,7 @@ function updateStatus(intial = false) {
 
     // Provide insightful comentary
     if (intial == false) {
-        let commentary = chessGenerateHumorousCommentary(session.chessLastFEN, session.chessFEN);
+        let commentary = alt_chessGenerateHumorousCommentary(session.chessLastFEN, session.chessFEN);
         chessSpeak(commentary);
     }
 
@@ -85,7 +85,7 @@ function chessInitGame() {
     var config = {
         draggable: true,
         position: session.chessFEN,
-        pieceTheme: 'assets/img/chesspieces/wikipedia/{piece}.png',
+        pieceTheme: 'assets/img/chesspieces/' + session.chessTheme + '/{piece}.png',
         onDragStart: onDragStart,
         onDrop: onDrop,
         onSnapEnd: onSnapEnd

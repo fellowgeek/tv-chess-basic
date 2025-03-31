@@ -46,6 +46,7 @@ function initializeApp() {
         chessHapticsEnabled: 'Y',
         chessFEN: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
         chessLastFEN: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+        chessTheme: 'alpha',
         appDarkMode: 'N',
         appBackground: 'bg-1',
     };

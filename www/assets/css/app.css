@@ -126,6 +126,7 @@ body {
   overflow: scroll;
 }
 
+
 .ios .button,
 input.dialog-input {
   text-transform: none;
@@ -169,8 +170,6 @@ input.dialog-input {
   font-size: 15px;
 }
 
-
-
 #fen, #pgn, #status {
   outline: 1px dashed #f0f;
   position: absolute;
@@ -204,4 +203,187 @@ input.dialog-input {
   border: 1px solid #333 !important;
   background-color: #555 !important;
   color: #eee !important;
+}
+
+/*
+Responsive
+*/
+
+/*
+Media Queries for iOS Devices
+*/
+
+@media only screen and (max-width: 4000px) {
+
+}
+
+@media only screen and (max-width: 1920px) {
+
+}
+
+/* iPads */
+@media only screen and (max-width: 1500px) {
+
+  #chessBoard {
+    width: 70vmin;
+  }
+
+  .board-b72b1 {
+    outline: 45px solid rgba(135, 135, 135, 10);
+  }
+
+  .notation-322f9 {
+    font-size: 2.2em;
+  }
+
+  .alpha-d2270 {
+    bottom: -45px;
+  }
+
+  .numeric-fc462 {
+    left: -32px;
+  }
+
+}
+
+@media only screen and (max-width: 1376px) {
+
+
+}
+
+@media only screen and (max-width: 1032px) {
+
+}
+
+@media only screen and (max-width: 1000px) {
+
+  .board-b72b1 {
+    outline: 45px solid rgba(135, 135, 135, 10);
+  }
+
+  .notation-322f9 {
+    font-size: 1.8em;
+  }
+
+  .alpha-d2270 {
+    bottom: -40px;
+  }
+
+  .numeric-fc462 {
+    left: -30px;
+  }
+
+}
+
+@media only screen and (min-width: 650px) {
+
+  .board-b72b1 {
+    outline: 30px solid rgba(135, 135, 135, 10);
+  }
+
+  .notation-322f9 {
+    font-size: 1.2em;
+  }
+
+  .alpha-d2270 {
+    bottom: -28px;
+  }
+
+  .numeric-fc462 {
+    left: -22px;
+  }
+
+}
+
+/* iPhones */
+@media only screen and (max-width: 640px) {
+
+  #chessBoard {
+    width: calc(100vw - 100px);
+  }
+
+  .board-b72b1 {
+    outline: 20px solid rgba(135, 135, 135, 10);
+  }
+  .notation-322f9 {
+    font-size: 12px;
+  }
+
+  .alpha-d2270 {
+    bottom: -20px;
+  }
+
+  .numeric-fc462 {
+    left: -15px;
+  }
+
+}
+
+@media only screen and (max-width: 500px) {
+
+  #chessBoard {
+    width: calc(100vw - 58px);
+  }
+
+}
+
+@media only screen and (max-width: 430px) {
+
+
+
+}
+
+@media only screen and (max-width: 428px) {
+
+
+}
+
+@media only screen and (max-width: 414px) {
+
+
+}
+
+@media only screen and (max-width: 402px) {
+
+
+
+}
+
+@media only screen and (max-width: 393px) {
+
+
+}
+
+@media only screen and (max-width: 390px) {
+
+
+}
+
+
+@media only screen and (max-width: 375px) {
+
+
+}
+
+@media only screen and (max-width: 320px) {
+
+  #chessBoard {
+    width: calc(100vw - 60px);
+  }
+
+  .board-b72b1 {
+    outline: 18px solid rgba(135, 135, 135, 10);
+  }
+  .notation-322f9 {
+    font-size: 11px;
+  }
+
+  .alpha-d2270 {
+    bottom: -18px;
+  }
+
+  .numeric-fc462 {
+    left: -13px;
+  }
+
 }
