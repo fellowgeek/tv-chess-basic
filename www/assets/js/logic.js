@@ -12,7 +12,7 @@ function onDragStart(source, piece, position, orientation) {
     }
 }
 
-function onDrop(source, target) {
+function onDrop(source, target, piece, newPos, oldPos, orientation) {
     // see if the move is legal
     try  {
         session.chessLastFEN = chessController.fen();

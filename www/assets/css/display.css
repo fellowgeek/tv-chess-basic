@@ -1,0 +1,100 @@
+/*
+Helper Classes
+*/
+.outline {
+    outline: 1px dashed fuchsia;
+}
+
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.monospace,
+.style-list-item-text.monospace,
+.style-list-item-text-large.monospace {
+    font-family: 'SF Mono', SFMono-Regular, ui-monospace, 'DejaVu Sans Mono', Menlo, Consolas, monospace;
+    font-size: 14px !important;
+    letter-spacing: 0;
+    line-break: anywhere !important;
+}
+
+/*
+User Interface
+*/
+
+.bg-1 {
+    background-color: #bbb;
+}
+
+.bg-2 {
+    background-image: url('../img/patterns/cartographer.png');
+}
+
+.bg-3 {
+    background-color: #1a3057;
+    background-image:
+        linear-gradient(0deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.bg-4 {
+    background-image: url('../img/patterns/dot-grid.png.jpeg');
+}
+
+.bg-5 {
+    background-image: url('../img/patterns/inflicted.png');
+}
+
+.bg-6 {
+    background-image: url('../img/patterns/dark_brick_wall.png');
+}
+
+.bg-7 {
+    background-image: url('../img/patterns/stardust.png');
+}
+
+.container {
+    margin: auto;
+    width: calc(100% - 10px);
+    height: 100%;
+    overflow: scroll;
+}
+
+/*
+Dark Mode
+*/
+
+/*
+Responsive
+*/
+@media only screen and (max-width: 4000px) {
+
+    #chessBoard {
+        width: 80vmin;
+    }
+
+    .board-b72b1 {
+        outline: 45px solid rgba(135, 135, 135, 10);
+    }
+
+    .notation-322f9 {
+        font-size: 2.0em;
+    }
+
+    .alpha-d2270 {
+        bottom: -42px;
+    }
+
+    .numeric-fc462 {
+        left: -32px;
+    }
+
+}

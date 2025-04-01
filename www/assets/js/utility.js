@@ -112,16 +112,16 @@ function chessReset() {
 // This function sets the app backgroung image.
 function chessSetBackground(bg) {
     // Validate the background
-    if (/\b(bg-1|bg-2|bg-3|bg-4|bg-5)\b/.test(bg) == false) {
+    if (/\b(bg-1|bg-2|bg-3|bg-4|bg-5|bg-6|bg-7|bg-8|bg-9)\b/.test(bg) == false) {
         return false;
     }
 
     // Update the session and set the background
     session.hostBackground = bg;
-    $$('.page[data-name="home"]').removeClass('bg-1 bg-2 bg-3 bg-4 bg-5 bg-6').addClass(session.hostBackground);
+    $$('.page[data-name="home"]').removeClass('bg-1 bg-2 bg-3 bg-4 bg-5 bg-6 bg-7 bg-8 bg-9').addClass(session.hostBackground);
 
     // Save the session
-    hostSaveSettings();
+    chessSaveSettings();
 }
 
 // This function plays a sound effect if app sound effects are enabled

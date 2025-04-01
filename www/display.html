@@ -1,50 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
-	<!-- stylesheets -->
-	<link href="assets/css/styles.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+	<title>TV Chess - Basic</title>
+    <link rel="stylesheet" href="assets/css/chessboard-1.0.0.css">
+    <link rel="stylesheet" href="assets/css/display.css">
 </head>
 
-<body>
+<body class="bg-1">
 
-	<span class="title title-external-display">- EXTERNAL DISPLAY -</span>
+    <div class="container">
+        <div id="chessBoard" class="center"></div>
+    </div>
 
-	<div class="blueprint">
-		<div class="grid-large">
-
-			<div class="wrapper">
-			</div>
-
-		</div>
-	</div>
-
-	<span class="prompt">...</span>
-	<span class="response"></span>
-
-	<!-- Top Left Arrow -->
-	<svg class="corner-arrow arrow-tl" viewBox="0 0 40 40">
-		<path d="M20,40 L20,5 M5,20 L20,5 L35,20"></path>
-	</svg>
-
-	<!-- Top Right Arrow -->
-	<svg class="corner-arrow arrow-tr" viewBox="0 0 40 40">
-		<path d="M20,40 L20,5 M5,20 L20,5 L35,20"></path>
-	</svg>
-
-	<!-- Bottom Left Arrow -->
-	<svg class="corner-arrow arrow-bl" viewBox="0 0 40 40">
-		<path d="M20,40 L20,5 M5,20 L20,5 L35,20"></path>
-	</svg>
-
-	<!-- Bottom Right Arrow -->
-	<svg class="corner-arrow arrow-br" viewBox="0 0 40 40">
-		<path d="M20,40 L20,5 M5,20 L20,5 L35,20"></path>
-	</svg>
-
+    <script src="assets/js/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/chessboard-1.0.0.min.js"></script>
+    <script src="assets/js/display.js"></script>
 </body>
 
 </html>
