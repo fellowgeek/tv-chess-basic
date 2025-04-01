@@ -1,5 +1,6 @@
 // This function loads the app settings from a response or the current session.
 function chessLoadSettings(response = '', updateStatuses = false) {
+
     // If the response is not empty, parse it and update the session.
     if (response != '') {
         session = JSON.parse(response.replace(/\n/g, '\\n'));
@@ -8,13 +9,17 @@ function chessLoadSettings(response = '', updateStatuses = false) {
         if (session.chessHapticsEnabled == undefined) session.chessHapticsEnabled = 'Y';
         if (session.chessFEN == undefined) session.chessFEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
         if (session.chessLastFEN == undefined) session.chessLastFEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
-        if (session.chessTheme == undefined) session.chessTheme = 'alpha';
+        if (session.chessPGN == undefined) session.chessPGN = '';
+        if (session.chessPiecesTheme == undefined) session.chessPiecesTheme = 'alpha';
         if (session.appDarkMode == undefined) session.appDarkMode = 'N';
         if (session.appBackground == undefined) session.appBackground = 'bg-1';
     }
 
     // Update the UI
     updateUIFromSession();
+
+    // Initalize the game
+    chessInitGame();
 }
 
 // This function saves the current session to the storage.
@@ -44,7 +49,7 @@ function updateSessionFromSettingsUI() {
     session.chessAICommentary = $$('#chessAICommentary').prop('checked') ? 'Y' : 'N';
     session.chessSoundsEnabled = $$('#chessSoundsEnabled').prop('checked') ? 'Y' : 'N';
     session.chessHapticsEnabled = $$('#chessHapticsEnabled').prop('checked') ? 'Y' : 'N';
-    session.chessTheme = $$('#chessTheme').val();
+    session.chessPiecesTheme = $$('#chessPiecesTheme').val();
     session.appDarkMode = $$('#appDarkMode').prop('checked') ? 'Y' : 'N';
     session.appBackground = $$('#appBackground').val();
 }
@@ -61,14 +66,14 @@ function updateUIFromSession() {
     // Update haptics settings
     $$('#chessHapticsEnabled').prop('checked', session.chessHapticsEnabled == 'Y' ? true : false);
 
-    // Update the chess theme
-    $$('#chessTheme').val(session.chessTheme);
+    // Update the chess pieces theme
+    $$('#chessPiecesTheme').val(session.chessPiecesTheme);
 
     // Update the dark mode settings
     $$('#appDarkMode').prop('checked', session.appDarkMode == 'Y' ? true : false);
     if (session.appDarkMode == 'Y') {
         app.setDarkMode(true);
-        //app.setColorTheme('#ff2d55');
+        app.setColorTheme('#ff2d55');
     } else {
         app.setDarkMode(false);
         app.setColorTheme('#007aff');
@@ -77,7 +82,6 @@ function updateUIFromSession() {
     // Update page background settings
     $$('.page[data-name="home"]').removeClass('bg-1 bg-2 bg-3 bg-4 bg-5 bg-6').addClass(session.appBackground);
     $$('#appBackground').val(session.appBackground);
-
 }
 
 // This function resets all app settings to default.
@@ -92,6 +96,9 @@ function chessReset() {
         appDarkMode: 'N',
         appBackground: 'bg-1',
     };
+
+    // Reset the chess game
+    chessNewGame();
 
     // Update the UI
     updateUIFromSession();

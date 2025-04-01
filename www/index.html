@@ -37,6 +37,14 @@
 
                     <!-- Help -->
                     <div class="block row">
+
+                        <div class="grid grid-cols-2 grid-gap">
+                            <button class="chessNewGame button button-fill button-medium" data-index="">New Game</button>
+                            <button class="chessHistory button button-fill button-medium" data-index="">History</button>
+                        </div>
+
+                        <br/>
+
                         <div class="col">
                             <button id="btnHelp" class="button button-fill color-primary popup-open" data-popup=".help-popup">Help & CREDITS</button>
                         </div>
@@ -50,9 +58,9 @@
                             <li>
                                 <div class="item-content item-input">
                                     <div class="item-inner">
-                                        <div class="item-title item-label">Theme</div>
+                                        <div class="item-title item-label">Pieces</div>
                                         <div class="item-input-wrap input-dropdown-wrap">
-                                            <select id="chessTheme" class="settings">
+                                            <select id="chessPiecesTheme" class="settings">
                                                 <option value="alpha">Alpha</option>
                                                 <option value="wikipedia">Wikipedia</option>
                                                 <option value="uscf">USCF</option>

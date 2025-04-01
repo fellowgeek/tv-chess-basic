@@ -1,4 +1,5 @@
 var board = null;
+const chessStartFEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 
 function onDragStart(source, piece, position, orientation) {
     // do not pick up pieces if the game is over
@@ -20,7 +21,6 @@ function onDrop(source, target) {
             to: target,
             promotion: 'q' // NOTE: always promote to a queen for example simplicity
         });
-        console.log(move.flags);
     } catch {
         // illegal move
         return 'snapback';
@@ -33,8 +33,7 @@ function onDrop(source, target) {
     updateStatus();
 }
 
-// update the board position after the piece snap
-// for castling, en passant, pawn promotion
+// update the board position after the piece snap for castling, en passant, pawn promotion
 function onSnapEnd() {
     board.position(chessController.fen());
 }
@@ -69,30 +68,68 @@ function updateStatus(intial = false) {
 
     // Update the session
     session.chessFEN = chessController.fen();
+    session.chessPGN = chessController.pgn();
 
     // Provide insightful comentary
     if (intial == false) {
         let commentary = alt_chessGenerateHumorousCommentary(session.chessLastFEN, session.chessFEN);
+        let comentaryParts = commentary.split('|');
+        comentaryParts.forEach((comentaryPart, index) => {
+            comentaryParts[index] = createSlugFromFirst10Words(comentaryPart);
+        });
+        commentary = commentary.replaceAll('|', '');
+        debugLog(comentaryParts);
         chessSpeak(commentary);
     }
 
     $$('#status').text(status);
     $$('#fen').text(chessController.fen());
     $$('#pgn').text(chessController.pgn());
+
+    // save session
+    chessSaveSettings();
+}
+
+function chessNewGame() {
+    if (board == null) {
+        chessInitGame();
+        return;
+    }
+
+    // reset the game
+    board.clear();
+    board.position(chessStartFEN);
+    chessController.reset();
+    session.chessFEN = chessStartFEN;
+    session.chessLastFEN = chessStartFEN;
+    session.chessPGN = '';
+
+    updateStatus(true);
 }
 
 function chessInitGame() {
+    debugLog('Initializing chess game...');
+
     var config = {
         draggable: true,
         position: session.chessFEN,
-        pieceTheme: 'assets/img/chesspieces/' + session.chessTheme + '/{piece}.png',
+        pieceTheme: 'assets/img/chesspieces/' + session.chessPiecesTheme + '/{piece}.png',
         onDragStart: onDragStart,
         onDrop: onDrop,
         onSnapEnd: onSnapEnd
     }
 
     board = Chessboard('chessBoard', config);
-    session.chessFEN = chessController.fen();
-    session.chessLastFEN = chessController.fen();
+    chessController.loadPgn(session.chessPGN);
     updateStatus(true);
+
+    debugLog(`%c${chessController.ascii()}`, 'font-family: menlo, consolas, monospace');
 }
+
+// Resize the chess board when window is resized
+window.addEventListener('resize', function() {
+    debugLog('Window resized: ' + window.innerWidth + 'x' + window.innerHeight);
+    if (board != null) {
+        board.resize();
+    }
+});

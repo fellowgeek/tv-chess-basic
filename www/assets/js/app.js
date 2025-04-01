@@ -46,7 +46,8 @@ function initializeApp() {
         chessHapticsEnabled: 'Y',
         chessFEN: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
         chessLastFEN: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
-        chessTheme: 'alpha',
+        chessPGN: '',
+        chessPiecesTheme: 'alpha',
         appDarkMode: 'N',
         appBackground: 'bg-1',
     };
@@ -55,7 +56,6 @@ function initializeApp() {
     import('./chess.js').then((module) => {
         Chess = module.Chess; // Access the Chess object from the module
         chessController = new Chess();
-        debugLog(`%c${chessController.ascii()}`, 'font-family: menlo, consolas, monospace');
     });
 
     // Initialize Framework7 app with iOS theme
@@ -89,9 +89,6 @@ $$(document).on('page:init', function (e, page) {
 
     updateUIFromSession();
 
-    // Initalize the game
-    chessInitGame();
-
     // Read data from storage and load settings
     enClose({
         nativeCall: 'readData',
@@ -106,10 +103,11 @@ $$(document).on('page:init', function (e, page) {
         updateUIFromSession();
     });
 
-    // Event listener for when the right panel is opened
+    // Event listener for when the right panel is closed
     $$('.panel-right').on('panel:closed', function () {
         debugLog('panel: "right" closed.');
         // Update settings from the panel user interface
+        chessInitGame();
         updateSessionFromSettingsUI();
         setTimeout(() => {
             chessSaveSettings();
@@ -123,7 +121,15 @@ $$(document).on('page:init', function (e, page) {
         updateUIFromSession();
     });
 
-    // Event listener for when the reset counter button is clicked
+    // Event listener for new game button
+    $$('.chessNewGame').click(function() {
+        chessNewGame();
+        setTimeout(() => {
+            app.panel.close('right');
+        }, 250);
+    });
+
+    // Event listener for when the reset button is clicked
     $$('#btnReset').click(function() {
         app.dialog.confirm('Would you like to reset the app data?', 'Reset App', () => {
             // Reset the app session and close the panel

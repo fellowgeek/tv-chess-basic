@@ -126,7 +126,6 @@ body {
   overflow: scroll;
 }
 
-
 .ios .button,
 input.dialog-input {
   text-transform: none;
@@ -170,6 +169,10 @@ input.dialog-input {
   font-size: 15px;
 }
 
+#chessboard {
+  position: relative;
+}
+
 #fen, #pgn, #status {
   outline: 1px dashed #f0f;
   position: absolute;
@@ -208,12 +211,27 @@ input.dialog-input {
 /*
 Responsive
 */
-
-/*
-Media Queries for iOS Devices
-*/
-
 @media only screen and (max-width: 4000px) {
+
+  #chessBoard {
+    width: 80vmin;
+  }
+
+  .board-b72b1 {
+    outline: 45px solid rgba(135, 135, 135, 10);
+  }
+
+  .notation-322f9 {
+    font-size: 2.1em;
+  }
+
+  .alpha-d2270 {
+    bottom: -42px;
+  }
+
+  .numeric-fc462 {
+    left: -32px;
+  }
 
 }
 
@@ -258,24 +276,24 @@ Media Queries for iOS Devices
 @media only screen and (max-width: 1000px) {
 
   .board-b72b1 {
-    outline: 45px solid rgba(135, 135, 135, 10);
+    outline: 35px solid rgba(135, 135, 135, 10);
   }
 
   .notation-322f9 {
-    font-size: 1.8em;
+    font-size: 1.4em;
   }
 
   .alpha-d2270 {
-    bottom: -40px;
+    bottom: -32px;
   }
 
   .numeric-fc462 {
-    left: -30px;
+    left: -25px;
   }
 
 }
 
-@media only screen and (min-width: 650px) {
+/* @media only screen and (min-width: 650px) {
 
   .board-b72b1 {
     outline: 30px solid rgba(135, 135, 135, 10);
@@ -293,7 +311,7 @@ Media Queries for iOS Devices
     left: -22px;
   }
 
-}
+} */
 
 /* iPhones */
 @media only screen and (max-width: 640px) {
