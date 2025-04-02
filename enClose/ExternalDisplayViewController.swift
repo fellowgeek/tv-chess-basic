@@ -66,7 +66,7 @@ class ExternalDisplayViewController: UIViewController, WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
 
         // Post a notification when external display web view finished loading
-        NotificationCenter.default.post(name: .externalDisplayWebViewFinishedLoading, object: nil)
+        NotificationCenter.default.post(name: .externalDisplayWebViewFinishedLoading, object: nil)            
     }
 
 }

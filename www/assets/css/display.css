@@ -1,4 +1,14 @@
 /*
+Global Styles
+*/
+html, body {
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	height: 100vh;
+}
+
+/*
 Helper Classes
 */
 .outline {
@@ -6,7 +16,7 @@ Helper Classes
 }
 
 .center {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -76,6 +86,31 @@ Dark Mode
 Responsive
 */
 @media only screen and (max-width: 4000px) {
+
+    #chessBoard {
+        width: 80vmin;
+    }
+
+    .board-b72b1 {
+        outline: 70px solid rgba(135, 135, 135, 10);
+    }
+
+    .notation-322f9 {
+        font-size: 3.0em;
+    }
+
+    .alpha-d2270 {
+        bottom: -64px;
+    }
+
+    .numeric-fc462 {
+        left: -50px;
+    }
+
+}
+
+
+@media only screen and (max-width: 3000px) {
 
     #chessBoard {
         width: 80vmin;

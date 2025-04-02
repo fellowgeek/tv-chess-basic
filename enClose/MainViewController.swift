@@ -234,7 +234,14 @@ class MainViewController: UIViewController, WKUIDelegate, WKScriptMessageHandler
             print("External display web view finished loading")
         }
         evaluateJavascript(javaScript: """
+            var __EXTERNAL_DISPLAY__ = true;
             enCloseEvent('externalDisplayWebViewFinishedLoading');
+            setTimeout(() => {
+                enCloseEvent('externalDisplayWebViewFinishedLoading');
+            }, 250);            
+            setTimeout(() => {
+                enCloseEvent('externalDisplayWebViewFinishedLoading');
+            }, 500);            
             """
         )
     }
@@ -262,6 +269,13 @@ class MainViewController: UIViewController, WKUIDelegate, WKScriptMessageHandler
     Keep interface methods simple and delegate complex logic to dedicated classes.
     */
 
+    // Function to execute javascript on external display
+    @objc func performJSOnExternalDisplay(_ params: [String: String]) {
+        if let js = params["js"] {
+            evaluateJavascript(javaScript: js, target: .external)
+        }
+    }
+    
     // Function to read data from app storage
     @objc func readData(_ params: [String: String]) {
         var javaScript: String = ""
@@ -349,15 +363,6 @@ class MainViewController: UIViewController, WKUIDelegate, WKScriptMessageHandler
         } else {
             return voices.first { $0.language.starts(with: language) }
         }
-    }
-
-    // A custom "updateExternalDisplayMessage" function which is called from Javascript, that demostrates how to update an HTML element on external display from the native code
-    @objc func updateExternalDisplayMessage(_ params: [String: String]) {
-        var javaScript: String = ""
-
-        let message = params["message"] ?? ""
-        javaScript = "document.querySelector('.prompt').innerText = '\(message)';"
-        evaluateJavascript(javaScript: javaScript, target: .external)
     }
 
 }

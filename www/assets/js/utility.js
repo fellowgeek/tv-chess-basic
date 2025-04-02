@@ -22,6 +22,18 @@ function chessLoadSettings(response = '', updateStatuses = false) {
     chessInitGame();
 }
 
+// Handle the session when app failed to load settings
+function chessLoadSettingsErrorCallback() {
+    debugLog('Unable to load your saved settings. This is normal if this is the first time you\'re using the app. Default settings will be used.');
+    debugLog('Default settings will be used.');
+    // Force app to load default session values
+    chessLoadSettings('');
+    // Save the session
+    setTimeout(() => {
+        chessSaveSettings();
+    }, 500);
+}
+
 // This function saves the current session to the storage.
 function chessSaveSettings() {
     // check if the session has changed
@@ -82,6 +94,48 @@ function updateUIFromSession() {
     // Update page background settings
     $$('.page[data-name="home"]').removeClass('bg-1 bg-2 bg-3 bg-4 bg-5 bg-6').addClass(session.appBackground);
     $$('#appBackground').val(session.appBackground);
+
+    // Update external display if needed.
+    updateExternalDisplayFromSession();
+}
+
+// This function updates the external display based on the session
+function updateExternalDisplayFromSession() {
+    if (typeof __EXTERNAL_DISPLAY__ == 'undefined' || __EXTERNAL_DISPLAY__ == false) {
+        return;
+    }
+
+    // Update session
+    enClose({
+        nativeCall: 'performJSOnExternalDisplay',
+        data: {
+            js: `
+                session = {
+                    chessFEN: '${session.chessFEN}',
+                    chessPiecesTheme: '${session.chessPiecesTheme}',
+                    appDarkMode: '${session.appDarkMode}',
+                    appBackground: '${session.appBackground}',
+                };
+            `
+        }
+    });
+
+    // Update background
+    enClose({
+        nativeCall: 'performJSOnExternalDisplay',
+        data: {
+            js: `chessSetBackground('${session.appBackground}');`
+        }
+    });
+
+    // Initalize the external display
+    enClose({
+        nativeCall: 'performJSOnExternalDisplay',
+        data: {
+            js: `chessInitGame();`
+        }
+    });
+
 }
 
 // This function resets all app settings to default.
@@ -117,8 +171,8 @@ function chessSetBackground(bg) {
     }
 
     // Update the session and set the background
-    session.hostBackground = bg;
-    $$('.page[data-name="home"]').removeClass('bg-1 bg-2 bg-3 bg-4 bg-5 bg-6 bg-7 bg-8 bg-9').addClass(session.hostBackground);
+    session.appBackground = bg;
+    $$('.page[data-name="home"]').removeClass('bg-1 bg-2 bg-3 bg-4 bg-5 bg-6 bg-7 bg-8 bg-9').addClass(session.appBackground);
 
     // Save the session
     chessSaveSettings();

@@ -12,6 +12,7 @@ function onDragStart(source, piece, position, orientation) {
     }
 }
 
+// Handle when a chess piece is dropped on the board
 function onDrop(source, target, piece, newPos, oldPos, orientation) {
     // see if the move is legal
     try  {
@@ -33,11 +34,12 @@ function onDrop(source, target, piece, newPos, oldPos, orientation) {
     updateStatus();
 }
 
-// update the board position after the piece snap for castling, en passant, pawn promotion
+// Update the board position after the piece snap for castling, en passant, pawn promotion
 function onSnapEnd() {
     board.position(chessController.fen());
 }
 
+// Update the game status after each move
 function updateStatus(intial = false) {
     var status = ''
 
@@ -82,14 +84,21 @@ function updateStatus(intial = false) {
         chessSpeak(commentary);
     }
 
-    $$('#status').text(status);
-    $$('#fen').text(chessController.fen());
-    $$('#pgn').text(chessController.pgn());
+    // If external display is connected, update the counter on the external display
+    if (typeof __EXTERNAL_DISPLAY__ != 'undefined' && __EXTERNAL_DISPLAY__ == true) {
+        enClose({
+            nativeCall: 'performJSOnExternalDisplay',
+            data: {
+                js: `chessUpdateBoard('${session.chessFEN}');`
+            }
+        });
+    }
 
     // save session
     chessSaveSettings();
 }
 
+// This function starts a new chess game
 function chessNewGame() {
     if (board == null) {
         chessInitGame();
@@ -104,9 +113,20 @@ function chessNewGame() {
     session.chessLastFEN = chessStartFEN;
     session.chessPGN = '';
 
+    // If external display is connected, update the counter on the external display
+    if (typeof __EXTERNAL_DISPLAY__ != 'undefined' && __EXTERNAL_DISPLAY__ == true) {
+        enClose({
+            nativeCall: 'performJSOnExternalDisplay',
+            data: {
+                js: `chessNewGame('${session.chessFEN}');`
+            }
+        });
+    }
+
     updateStatus(true);
 }
 
+// This function (re)initalizes the chess board and loads the last state from session (if any)
 function chessInitGame() {
     debugLog('Initializing chess game...');
 

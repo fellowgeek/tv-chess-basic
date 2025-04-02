@@ -6,10 +6,8 @@ var $$ = Dom7;
 var session = {};
 // Create an empty session hash to store the session data hash
 var lastSessionHash = '';
-// Load env.js in debug mode
+// Load debug.env file during the development phase (must set to false before production)
 var loadEnv = true;
-// Store if the tiles are being dragged
-var isDragging = false;
 // Global variable
 let Chess;
 // Create an empty object to store the chess controller instance
@@ -22,7 +20,7 @@ function debugLog(...message) {
     }
 }
 
-// Load environment variables in debug mode
+// Load environment variables during the development phase
 if (loadEnv == true) {
     let envJS = document.createElement('script');
     envJS.type = 'text/javascript';
@@ -87,13 +85,17 @@ $$(document).on('page:init', function (e, page) {
     if(page.name != 'home')
         return;
 
-    updateUIFromSession();
+    // Initalize the UI if we are loading the app from a browser or during development
+    if (loadEnv == true) {
+        updateUIFromSession();
+        chessInitGame();
+    }
 
     // Read data from storage and load settings
     enClose({
         nativeCall: 'readData',
         successCallback: 'chessLoadSettings',
-        errorCallback: 'console.log'
+        errorCallback: 'chessLoadSettingsErrorCallback'
     });
 
     // Event listener for when the right panel is opened
@@ -138,6 +140,20 @@ $$(document).on('page:init', function (e, page) {
                 app.panel.close('right');
             }, 250);
         }, null);
+    });
+
+    // Event listener for when external display is connected and the web view is finished loading
+    document.addEventListener('enclose:event', function(event) {
+        // Log the enClose event
+        debugLog('event: "enclose:event" triggered. Data: ' + event.detail);
+        debugLog('__EXTERNAL_DISPLAY__ = ', __EXTERNAL_DISPLAY__);
+
+        if (event.detail == 'externalDisplayWebViewFinishedLoading') {
+            // Update the external display from the session
+            setTimeout(() => {
+                updateExternalDisplayFromSession();
+            }, 500);
+        }
     });
 
 });
