@@ -15,7 +15,7 @@ var chessController = null;
 
 // Function to log messages to the console when __DEBUG_MODE__ is enabled
 function debugLog(...message) {
-    if(typeof __DEBUG_MODE__ != 'undefined' && __DEBUG_MODE__ == true) {
+    if (typeof __DEBUG_MODE__ !== 'undefined' && __DEBUG_MODE__ === true) {
         console.log(...message);
     }
 }
@@ -45,6 +45,7 @@ function initializeApp() {
         chessFEN: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
         chessLastFEN: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
         chessPGN: '',
+        chessTheme: 'classic',
         chessPiecesTheme: 'alpha',
         appDarkMode: 'N',
         appBackground: 'bg-1',
@@ -88,7 +89,6 @@ $$(document).on('page:init', function (e, page) {
     // Initalize the UI if we are loading the app from a browser or during development
     if (loadEnv == true) {
         updateUIFromSession();
-        chessInitGame();
     }
 
     // Read data from storage and load settings
@@ -108,8 +108,8 @@ $$(document).on('page:init', function (e, page) {
     // Event listener for when the right panel is closed
     $$('.panel-right').on('panel:closed', function () {
         debugLog('panel: "right" closed.');
+
         // Update settings from the panel user interface
-        chessInitGame();
         updateSessionFromSettingsUI();
         setTimeout(() => {
             chessSaveSettings();
@@ -119,6 +119,8 @@ $$(document).on('page:init', function (e, page) {
     // Event listener for when the settings are changed
     $$('.settings').on('change', function() {
         debugLog('event: "change" triggered on ".settings" class.');
+
+        // Update settings from the panel user interface and update the UI
         updateSessionFromSettingsUI();
         updateUIFromSession();
     });

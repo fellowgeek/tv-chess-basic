@@ -74,13 +74,7 @@ function updateStatus(intial = false) {
 
     // Provide insightful comentary
     if (intial == false) {
-        let commentary = alt_chessGenerateHumorousCommentary(session.chessLastFEN, session.chessFEN);
-        let comentaryParts = commentary.split('|');
-        comentaryParts.forEach((comentaryPart, index) => {
-            comentaryParts[index] = createSlugFromFirst10Words(comentaryPart);
-        });
-        commentary = commentary.replaceAll('|', '');
-        debugLog(comentaryParts);
+        let commentary = chessGenerateHumorousCommentary(session.chessLastFEN, session.chessFEN);
         chessSpeak(commentary);
     }
 
@@ -95,7 +89,9 @@ function updateStatus(intial = false) {
     }
 
     // save session
-    chessSaveSettings();
+    if (intial == false) {
+        chessSaveSettings();
+    }
 }
 
 // This function starts a new chess game
@@ -142,6 +138,12 @@ function chessInitGame() {
     board = Chessboard('chessBoard', config);
     chessController.loadPgn(session.chessPGN);
     updateStatus(true);
+
+    // Apply the theme to the board (twice with delay due to a race condition bug)
+    chessSetTheme(session.chessTheme, true);
+    setTimeout(() => {
+        chessSetTheme(session.chessTheme, true);
+    }, 50);
 
     debugLog(`%c${chessController.ascii()}`, 'font-family: menlo, consolas, monospace');
 }

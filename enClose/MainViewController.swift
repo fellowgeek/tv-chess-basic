@@ -268,7 +268,7 @@ class MainViewController: UIViewController, WKUIDelegate, WKScriptMessageHandler
     Add your @objc exposed functions below this comment block to maintain code organization.
     Keep interface methods simple and delegate complex logic to dedicated classes.
     */
-
+  
     // Function to execute javascript on external display
     @objc func performJSOnExternalDisplay(_ params: [String: String]) {
         if let js = params["js"] {

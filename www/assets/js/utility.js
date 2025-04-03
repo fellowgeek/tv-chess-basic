@@ -11,20 +11,18 @@ function chessLoadSettings(response = '', updateStatuses = false) {
         if (session.chessLastFEN == undefined) session.chessLastFEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
         if (session.chessPGN == undefined) session.chessPGN = '';
         if (session.chessPiecesTheme == undefined) session.chessPiecesTheme = 'alpha';
+        if (session.chessTheme == undefined) session.chessTheme = 'classic';
         if (session.appDarkMode == undefined) session.appDarkMode = 'N';
         if (session.appBackground == undefined) session.appBackground = 'bg-1';
     }
 
     // Update the UI
     updateUIFromSession();
-
-    // Initalize the game
-    chessInitGame();
 }
 
 // Handle the session when app failed to load settings
 function chessLoadSettingsErrorCallback() {
-    debugLog('Unable to load your saved settings. This is normal if this is the first time you\'re using the app. Default settings will be used.');
+    debugLog('Unable to load your saved settings. This is normal if this is the first time you\'re using the app.');
     debugLog('Default settings will be used.');
     // Force app to load default session values
     chessLoadSettings('');
@@ -42,6 +40,9 @@ function chessSaveSettings() {
         debugLog('Session has not changed, save skipped.');
         return;
     }
+
+    console.table('saving:');
+    console.table(session);
 
     // write the session to the storage
     enClose({
@@ -61,8 +62,9 @@ function updateSessionFromSettingsUI() {
     session.chessAICommentary = $$('#chessAICommentary').prop('checked') ? 'Y' : 'N';
     session.chessSoundsEnabled = $$('#chessSoundsEnabled').prop('checked') ? 'Y' : 'N';
     session.chessHapticsEnabled = $$('#chessHapticsEnabled').prop('checked') ? 'Y' : 'N';
-    session.chessPiecesTheme = $$('#chessPiecesTheme').val();
     session.appDarkMode = $$('#appDarkMode').prop('checked') ? 'Y' : 'N';
+    session.chessPiecesTheme = $$('#chessPiecesTheme').val();
+    session.chessTheme = $$('#chessTheme').val();
     session.appBackground = $$('#appBackground').val();
 }
 
@@ -78,9 +80,6 @@ function updateUIFromSession() {
     // Update haptics settings
     $$('#chessHapticsEnabled').prop('checked', session.chessHapticsEnabled == 'Y' ? true : false);
 
-    // Update the chess pieces theme
-    $$('#chessPiecesTheme').val(session.chessPiecesTheme);
-
     // Update the dark mode settings
     $$('#appDarkMode').prop('checked', session.appDarkMode == 'Y' ? true : false);
     if (session.appDarkMode == 'Y') {
@@ -91,9 +90,19 @@ function updateUIFromSession() {
         app.setColorTheme('#007aff');
     }
 
+    // Update the chess pieces theme
+    $$('#chessPiecesTheme').val(session.chessPiecesTheme);
+
+    // Update the chess board theme
+    $$('#chessTheme').val(session.chessTheme);
+
     // Update page background settings
-    $$('.page[data-name="home"]').removeClass('bg-1 bg-2 bg-3 bg-4 bg-5 bg-6').addClass(session.appBackground);
     $$('#appBackground').val(session.appBackground);
+    $$('.page[data-name="home"]').removeClass('bg-1 bg-2 bg-3 bg-4 bg-5 bg-6').addClass(session.appBackground);
+    chessSetBackground(session.appBackground, true);
+
+    // (re)Initalizes the chess board
+    chessInitGame();
 
     // Update external display if needed.
     updateExternalDisplayFromSession();
@@ -113,10 +122,19 @@ function updateExternalDisplayFromSession() {
                 session = {
                     chessFEN: '${session.chessFEN}',
                     chessPiecesTheme: '${session.chessPiecesTheme}',
+                    chessTheme: '${session.chessTheme}',
                     appDarkMode: '${session.appDarkMode}',
                     appBackground: '${session.appBackground}',
                 };
             `
+        }
+    });
+
+    // Update theme
+    enClose({
+        nativeCall: 'performJSOnExternalDisplay',
+        data: {
+            js: `chessSetTheme('${session.chessTheme}');`
         }
     });
 
@@ -147,6 +165,9 @@ function chessReset() {
         chessHapticsEnabled: 'Y',
         chessFEN: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
         chessLastFEN: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+        chessPGN: '',
+        chessTheme: 'classic',
+        chessPiecesTheme: 'alpha',
         appDarkMode: 'N',
         appBackground: 'bg-1',
     };
@@ -164,18 +185,82 @@ function chessReset() {
 }
 
 // This function sets the app backgroung image.
-function chessSetBackground(bg) {
+function chessSetBackground(background, skipSave = false) {
+
     // Validate the background
-    if (/\b(bg-1|bg-2|bg-3|bg-4|bg-5|bg-6|bg-7|bg-8|bg-9)\b/.test(bg) == false) {
+    if (/\b(bg-1|bg-2|bg-3|bg-4|bg-5|bg-6|bg-7|bg-8|bg-9)\b/.test(background) == false) {
         return false;
     }
 
     // Update the session and set the background
-    session.appBackground = bg;
+    session.appBackground = background;
     $$('.page[data-name="home"]').removeClass('bg-1 bg-2 bg-3 bg-4 bg-5 bg-6 bg-7 bg-8 bg-9').addClass(session.appBackground);
 
     // Save the session
-    chessSaveSettings();
+    if (skipSave == false) {
+        chessSaveSettings();
+    }
+}
+
+// This function sets the chess color theme
+function chessSetTheme(theme, skipSave = false) {
+
+    const themes = {
+        classic: {
+            black: '#999',
+            white: '#eee',
+            notation: '#000',
+            outline: 'rgba(135, 135, 135, 10)',
+            filter: '',
+        },
+        sepia: {
+            black: '#999',
+            white: '#eee',
+            notation: '#000',
+            outline: 'rgba(135, 135, 135, 10)',
+            filter: 'sepia(100%)',
+
+        },
+        spring: {
+            black: 'rgb(96,133,44)',
+            white: 'rgb(199, 224, 142)',
+            notation: '#000',
+            outline: 'rgba(146, 173, 108, 0.92)',
+            filter: '',
+        },
+        winter: {
+            black: 'rgb(27, 133, 214)',
+            white: 'rgb(115, 186, 237)',
+            notation: '#000',
+            outline: 'rgba(250, 250, 250, 0.94)',
+            filter: '',
+        },
+        picnic: {
+            black: 'rgb(221, 51, 51)',
+            white: '#eee',
+            notation: '#000',
+            outline: 'white',
+            filter: '',
+        },
+    }
+
+    // Validate the theme
+    if (/\b(classic|sepia|spring|winter|picnic|snow)\b/.test(theme) == false) {
+        return false;
+    }
+
+    // Update the session and set the theme
+    session.chessTheme = theme;
+    $$('.black-3c85d').css('background-color', themes[theme].black);
+    $$('.white-1e1d7').css('background-color', themes[theme].white);
+    $$('.notation-322f9').css('color', themes[theme].notation);
+    $$('.board-b72b1').css('outline-color', themes[theme].outline);
+    $$('#chessBoard').css('filter', themes[theme].filter);
+
+    // Save the session
+    if (skipSave == false) {
+        chessSaveSettings();
+    }
 }
 
 // This function plays a sound effect if app sound effects are enabled
@@ -363,11 +448,4 @@ function generateHash(str) {
         hash = hash & hash; // Convert to 32bit integer
     }
     return hash;
-}
-
-// Performs a functional test of the app.
-function test() {
-    let beforeFEN = "r2qkbnr/p3pppp/npppb3/8/2P1P3/3P3N/PP2BPPP/RNBQK2R w KQkq - 0 6";
-    let afterFEN = "r2qkbnr/p3pppp/npppb3/8/2P1P3/3P3N/PP2BPPP/RNBQ1RK1 b kq - 1 6";
-    console.log(chessGenerateHumorousCommentary(beforeFEN, afterFEN));
 }
