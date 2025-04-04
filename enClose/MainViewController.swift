@@ -364,6 +364,39 @@ class MainViewController: UIViewController, WKUIDelegate, WKScriptMessageHandler
             return voices.first { $0.language.starts(with: language) }
         }
     }
+    
+    // This method presents a iOS share sheet with the desired content
+    @objc func shareContent(_ params: [String: String]) {
+       var itemsToShare: [Any] = []
+
+       // Check if text exists in params
+       if let text = params["text"], !text.isEmpty {
+           itemsToShare.append(text)
+       }
+
+       // Check if a valid URL exists in params
+       if let urlString = params["url"], let url = URL(string: urlString) {
+           itemsToShare.append(url)
+       }
+
+       // Ensure there's something to share
+       guard !itemsToShare.isEmpty else {
+           print("Nothing to share!")
+           return
+       }
+
+       let activityViewController = UIActivityViewController(activityItems: itemsToShare, applicationActivities: nil)
+
+       // iPad safety: Set sourceView to avoid crashes
+       if let popoverController = activityViewController.popoverPresentationController {
+           popoverController.sourceView = self.view
+           popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+           popoverController.permittedArrowDirections = []
+       }
+
+       // Present the share sheet
+       self.present(activityViewController, animated: true)
+   }
 
 }
 

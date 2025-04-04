@@ -202,11 +202,33 @@
                     <div class="page-content">
                         <div class="block block-strong no-margin">
                             <h1>TV Chess - Basic</h1>
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis obcaecati quas error maxime voluptate excepturi incidunt! Aut architecto neque repudiandae eius harum odit, quis minus in voluptatum modi corporis. Molestiae?</p>
+                            <p>This sample project demonstrates the versatility and power of the enClose framework for building hybrid iOS applications using web technologies while accessing native device capabilities.</p>
+                            <p>TV Chess is a two-player chess application that showcases seamless integration between web-based UI components and native iOS features. The project illustrates how developers can leverage familiar web technologies while still delivering a truly native experience with platform-specific functionality.</p>
 
-                            <h3>Lorem Ipsum</h3>
+                            <h3>Technical Highlights</h3>
 
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Temporibus adipisci facilis eligendi. Modi quod voluptatibus molestiae illo cupiditate fugit dignissimos atque maxime! Ipsa a iure, culpa numquam unde autem corporis.
+                            <ul>
+                                <li><strong>Framework Integration:</strong> Built with Framework7 and enClose, demonstrating smooth bidirectional communication between JavaScript and native code</li>
+                                <li><strong>Chess Engine:</strong> Utilizes chess.js for game logic and chessboard.js for the interactive chess interface</li>
+                                <li><strong>Native Feature Access:</strong></li>
+                                <ul>
+                                    <li>Text-to-speech for humorous game commentary</li>
+                                    <li>Device haptic feedback for tactile response</li>
+                                    <li>Sound playback for enhanced user experience</li>
+                                    <li>Local data persistence within the app's document directory</li>
+                                    <li>iOS share sheet integration for sharing game PGN history</li>
+                                </ul>
+                            </ul>
+
+                            <h3>Developer Learning Opportunities</h3>
+                            <ul>
+                                <li>Implementation of external display support (mirroring or via HDMI dongle)</li>
+                                <li>User preference management for themes, backgrounds, and interaction options</li>
+                                <li>Data export functionality (PGN history) demonstrating content sharing capabilities</li>
+                                <li>Showcasing proper separation of web and native components</li>
+                            </ul>
+
+                            <p>This sample serves as a comprehensive reference for enClose developers looking to build feature-rich applications that combine the development efficiency of web technologies with the performance and capability advantages of native iOS features.</p>
 
                             <h3 id="credits-attributions">Credits &amp; Attributions</h3>
                             <p>This app is built using open-source technologies and digital assets. Here are the tools,
@@ -225,7 +247,7 @@
                                         <tr>
                                             <td>enClose</td>
                                             <td>
-                                                <a class="link external" href="https://github.com/fellowgeek/enClose">https://github.com/fellowgeek/enClose</a>
+                                                <a class="link external" href="https://enclose.app">https://enclose.app</a>
                                             </td>
                                             <td>
                                                 <a class="link external" href="https://github.com/fellowgeek/enClose/blob/master/LICENSE">MIT</a>
@@ -241,45 +263,22 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Chess.js</td>
-                                            <td>
-                                                <a class="link external" href="#">?</a>
-                                            </td>
-                                            <td>
-                                                <a class="link external" href="#">MIT</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
                                             <td>Chessboard.js</td>
                                             <td>
-                                                <a class="link external" href="#"></a>
+                                                <a class="link external" href="https://chessboardjs.com">https://chessboardjs.com</a>
                                             </td>
                                             <td>
-                                                <a class="link external" href="#">MIT</a>
+                                                <a class="link external" href="https://github.com/oakmac/chessboardjs/blob/master/LICENSE.md">MIT</a>
                                             </td>
                                         </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <h4>Asset Attribution:</h4>
-
-                            <p>This app incorporates assets from third-party providers. The following is a list of these assets and their associated licenses:</p>
-
-                            <div class="data-table">
-                                <table>
-                                    <thead>
                                         <tr>
-                                            <th class="color-black credits-th w-25"><b>Name</b></th>
-                                            <th class="color-black credits-th w-45">By</th>
-                                            <th class="color-black credits-th w-30">License</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Roboto Mono</td>
-                                            <td><a class="link external" href="https://fonts.google.com/specimen/Roboto+Mono/license">Google Fonts</a></td>
-                                            <td><a class="link external" href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a></td>
+                                            <td>Chess.js</td>
+                                            <td>
+                                                <a class="link external" href="https://github.com/jhlywa/chess.js">https://github.com/jhlywa/chess.js</a>
+                                            </td>
+                                            <td>
+                                                <a class="link external" href="https://github.com/jhlywa/chess.js/blob/master/LICENSE">BSD 2-Clause</a>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -289,6 +288,56 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- History Popup -->
+        <div class="popup popup-push history-popup" data-close-on-escape="true" data-swipe-to-close="to-bottom">
+
+            <div class="page">
+
+                <div class="navbar">
+                    <div class="navbar-bg"></div>
+                    <div class="navbar-inner">
+                        <div class="title">Game History</div>
+                    </div>
+                </div>
+
+                <div class="page-content">
+
+                    <!-- Description -->
+                    <div class="block block-strong inset no-margin-bottom fnt-12">
+                        <p>PGN (Portable Game Notation) is a standard text format for recording chess games. It stores moves, player names, event details, and more, making it easy to share and analyze games.</p>
+                        <p>View, copy, or export the game's PGN data below.</p>
+                    </div>
+
+                    <div class="list list-strong-ios list-dividers-ios inset-ios margin-top-15">
+
+                        <ul class="padding-top-15">
+                            <li>
+                                <div class="item-content item-input">
+                                    <div class="item-inner">
+                                        <div class="item-title item-label">PGN</div>
+                                        <div class="item-input-wrap">
+                                            <textarea id="chessPGN" spellcheck="false" readonly></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+
+                        <div class="block inset margin-top-15">
+                            <div class="grid grid-cols-2 grid-gap">
+                                <button class="button button-fill button-medium" onclick="chessExportPGN()">EXPORT</button>
+                                <button class="button button-fill button-medium" onclick="chessCopyPGN()"">COPY</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
         </div>
 
         <!-- Your main view, should have "view-main" class -->
@@ -302,7 +351,6 @@
     <script src="assets/js/chessboard-1.0.0.min.js"></script>
     <script src="assets/js/enclose.js"></script>
     <script src="assets/js/utility.js"></script>
-    <script src="assets/js/temp.js"></script>
     <script src="assets/js/logic.js"></script>
     <script src="assets/js/app.js"></script>
 </body>

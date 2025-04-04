@@ -86,6 +86,10 @@ User Interface
 Dark Mode
 */
 
+.dark .body {
+    filter: brightness(60%);
+}
+
 /*
 Responsive
 */

@@ -41,9 +41,6 @@ function chessSaveSettings() {
         return;
     }
 
-    console.table('saving:');
-    console.table(session);
-
     // write the session to the storage
     enClose({
         nativeCall: 'writeData',
@@ -409,9 +406,21 @@ function chessGenerateHumorousCommentary(beforeFEN, afterFEN) {
     ]);
 }
 
-// This function copies text from HTML element to clipboard.
-function copyToClipboard(elementID) {
-    let copyText = document.getElementById(elementID);
+// This function exports current game PGN into clipboard
+function chessExportPGN() {
+    let copyText = document.getElementById('chessPGN');
+
+    enClose({
+        nativeCall: 'shareContent',
+        data: {
+            text: copyText.value
+        }
+    });
+}
+
+// This function copies current game PGN into clipboard
+function chessCopyPGN() {
+    let copyText = document.getElementById('chessPGN');
     copyText.select();
     copyText.setSelectionRange(0, 99999);
     navigator.clipboard.writeText(copyText.value);

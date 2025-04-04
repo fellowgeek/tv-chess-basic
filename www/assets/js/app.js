@@ -133,6 +133,15 @@ $$(document).on('page:init', function (e, page) {
         }, 250);
     });
 
+    // Event listener for game history button
+    $$('.chessHistory').click(function() {
+        $$('#chessPGN').text(chessController.pgn());
+        app.popup.open('.history-popup');
+        setTimeout(() => {
+            app.panel.close('right');
+        }, 250);
+    });
+
     // Event listener for when the reset button is clicked
     $$('#btnReset').click(function() {
         app.dialog.confirm('Would you like to reset the app data?', 'Reset App', () => {
