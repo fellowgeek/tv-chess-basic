@@ -1,6 +1,6 @@
 # TV Chess - Basic
 
-This sample project demonstrates the versatility and power of the enClose framework for building hybrid iOS applications using web technologies while accessing native device capabilities.
+This sample project demonstrates the versatility and power of the [enClose](http://github.com/fellowgeek/enClose) framework for building hybrid iOS applications using web technologies while accessing native device capabilities.
 
 TV Chess is a two-player chess application that showcases seamless integration between web-based UI components and native iOS features. The project illustrates how developers can leverage familiar web technologies while still delivering a truly native experience with platform-specific functionality.
 
